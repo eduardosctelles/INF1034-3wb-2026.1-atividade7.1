@@ -15,7 +15,7 @@ def tela_final():
         print(f'Tudo bem, obrigado por jogar! - Sua pontuação foi de {pontos} pontos')
 
 def jogo():
-    global pontos 
+    global pontos
     intro()
     p_escolhida = list(random.choice(lista))
     mostra_p_tela = ['_'] * len(p_escolhida)
@@ -23,26 +23,41 @@ def jogo():
 
     for i in range(1, 7):
         tent = input(f'Escreva a letra que você quer adivinhar: - Tentativa {i}\n')
-
-        repetido = True
-
-        for letra in range(len(p_escolhida)):
-            if tent == p_escolhida[letra]:
-                if repetido:
-                    print('Você acertou uma letra!')
-                    repetido = False
-                mostra_p_tela[letra] = p_escolhida[letra]
-                
+        repetido = False
+        #Chute da palavra toda
+        if len(tent) > 1:
+            if list(tent) == p_escolhida:
+                print('Você ganhou chutando a palavra!')
+                pontos = pontos + 1
+                tela_final()
+                return
+            else:
+                print(43*'=')
+                print('Você tentou chutar a palávra toda e perdeu!')
+                print(f'A palávra era {"".join(p_escolhida)}')
+                tela_final()
+                return
+        #Chute da letra
+        elif tent in p_escolhida:
+            for letra in range(len(p_escolhida)):
+                if tent == p_escolhida[letra]:
+                    if repetido == False:
+                        print('Você acertou uma letra!')
+                        repetido = True
+                    mostra_p_tela[letra] = tent
+        else:
+            print('Você errou a letra.')
+        
         print(mostra_p_tela)
 
-        if mostra_p_tela == p_escolhida or tent == str(p_escolhida):
+        if mostra_p_tela == p_escolhida:
             print('Você ganhou!')
             pontos = pontos + 1
             tela_final()
             return
-    
+        
     print(30*'=')
-    print(f'Suas vidas acabaram! - A palávra era {str(p_escolhida)}')
+    print(f'Suas vidas acabaram! - A palávra era {"".join(p_escolhida)}')
     tela_final()
 
 jogo()
