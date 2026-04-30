@@ -31,6 +31,7 @@ def jogo():
         #Chute da palavra toda
         if len(tent) > 1:
             if list(tent) == p_escolhida:
+                print(31*'=')
                 print('Você ganhou chutando a palavra!')
                 pontos = pontos + 1
                 tela_final()
@@ -50,11 +51,12 @@ def jogo():
                         repetido = True
                     mostra_p_tela[letra] = tent
         else:
-            print('Você errou a letra.')
+            print('Você perdeu uma vida.')
             n_tent = n_tent - 1 
         
+        print(25*'=')
         print(mostra_p_tela)
-
+        print(25*'=')
         if mostra_p_tela == p_escolhida:
             print('Você ganhou!')
             pontos = pontos + 1
