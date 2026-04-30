@@ -1,6 +1,7 @@
 import random
 pontos = 0
 lista = ["cachorro", "gato", "elefante", "leão", "tigre", "girafa", "zebra", "gorila", "pinguim", "golfinho", "baleia", "tubarão", "águia", "papagaio", "cobra", "jacaré", "tartaruga", "coelho", "cavalo", "lobo"]
+n_tent = 6
 
 def intro():
     print(30*'=')
@@ -8,6 +9,8 @@ def intro():
     print(30*'=')
 
 def tela_final():
+    global n_tent
+    n_tent = 6
     jogar = input('Você quer jogar denovo? - sim ou não?\n')
     if jogar == 'sim':
         jogo()
@@ -15,14 +18,15 @@ def tela_final():
         print(f'Tudo bem, obrigado por jogar! - Sua pontuação foi de {pontos} pontos')
 
 def jogo():
+    global n_tent
     global pontos
     intro()
     p_escolhida = list(random.choice(lista))
     mostra_p_tela = ['_'] * len(p_escolhida)
     print(mostra_p_tela)
 
-    for i in range(1, 7):
-        tent = input(f'Escreva a letra que você quer adivinhar: - Tentativa {i}\n')
+    for i in range(1, n_tent + 1):
+        tent = input(f'Escreva a letra que você quer adivinhar: - Tentativa {i} - Vidas = {n_tent}\n')
         repetido = False
         #Chute da palavra toda
         if len(tent) > 1:
@@ -47,6 +51,7 @@ def jogo():
                     mostra_p_tela[letra] = tent
         else:
             print('Você errou a letra.')
+            n_tent = n_tent - 1 
         
         print(mostra_p_tela)
 
@@ -56,7 +61,7 @@ def jogo():
             tela_final()
             return
         
-    print(30*'=')
+    print(43*'=')
     print(f'Suas vidas acabaram! - A palávra era {"".join(p_escolhida)}')
     tela_final()
 
